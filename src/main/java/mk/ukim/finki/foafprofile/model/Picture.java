@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Entity
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class Picture {
 
     @Id
@@ -22,5 +21,13 @@ public class Picture {
 
     @Column(length = 10000000)
     private byte[] data;
+
+    public Picture(){}
+
+    public Picture(String name, String type, byte[] data) {
+        this.name = name;
+        this.type = type;
+        this.data = data;
+    }
 
 }

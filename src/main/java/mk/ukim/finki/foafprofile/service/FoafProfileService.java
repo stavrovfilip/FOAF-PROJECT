@@ -8,4 +8,6 @@ public interface FoafProfileService {
     public FoafProfile createFoafProfile(FoafProfileInfo foafProfileInfo);
 
     public FoafProfile updateFoafProfile(FoafProfileInfo foafProfileInfo);
+
+    public FoafProfile getFoafProfileByUri(String uri);
 }
