@@ -69,7 +69,7 @@ public class FoafProfileInfoServiceImpl implements FoafProfileInfoService {
         foafProfileInfo.setSchoolHomepage(schoolHomepage);
         foafProfileInfo.setMyFriends(myFriends);
 
-        this.foafProfileService.updateFoafProfile(foafProfileInfo);
+        this.foafProfileService.updateFoafProfile(foafProfileInfo.getUri(),foafProfileInfo);
         return this.foafProfileInfoRepository.save(foafProfileInfo);
     }
 

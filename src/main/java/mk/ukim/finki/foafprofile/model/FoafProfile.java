@@ -19,6 +19,8 @@ public class FoafProfile {
 
     private String profile;
 
+    private String profileFile;
+
     @OneToOne
     private FoafProfileInfo foafProfileInfo;
 
