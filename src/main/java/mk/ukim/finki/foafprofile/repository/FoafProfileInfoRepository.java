@@ -13,5 +13,5 @@ public interface FoafProfileInfoRepository extends JpaRepository<FoafProfileInfo
 
     FoafProfileInfo findByNickName(String nickname);
 
-    boolean findByFirstNameAndLastName(String firstName, String lastName);
+    FoafProfileInfo findByFirstNameAndLastName(String firstName, String lastName);
 }

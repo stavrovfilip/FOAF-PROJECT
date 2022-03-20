@@ -35,14 +35,14 @@ public class FoafProfileInfoServiceImpl implements FoafProfileInfoService {
             throw new EmailAlreadyUsedExeption();
         }
         String name = firstName + lastName;
-        if (this.foafProfileInfoRepository.findByFirstNameAndLastName(firstName, lastName)) {
+        if (this.foafProfileInfoRepository.findByFirstNameAndLastName(firstName, lastName) != null) {
             Random random = new Random();
             int randomNumber = random.nextInt(100);
             name += randomNumber;
 
         }
         // TO DO: stavete go vo app.properites
-        String uri = "https://localhost:8080/profile?username=" + name;
+        String uri = name;
 
         FoafProfileInfo newProfile = new FoafProfileInfo(uri, title, firstName, lastName, nickName,
                 email, homepage, phoneNumber, picture, workHomepage, workDescription, schoolHomepage, myFriends);
@@ -69,7 +69,7 @@ public class FoafProfileInfoServiceImpl implements FoafProfileInfoService {
         foafProfileInfo.setSchoolHomepage(schoolHomepage);
         foafProfileInfo.setMyFriends(myFriends);
 
-        this.foafProfileService.updateFoafProfile(foafProfileInfo.getUri(),foafProfileInfo);
+        this.foafProfileService.updateFoafProfile(foafProfileInfo.getUri(), foafProfileInfo);
         return this.foafProfileInfoRepository.save(foafProfileInfo);
     }
 

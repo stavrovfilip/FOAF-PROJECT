@@ -1,6 +1,5 @@
 package mk.ukim.finki.foafprofile.service.impl;
 
-import lombok.AllArgsConstructor;
 import mk.ukim.finki.foafprofile.model.FoafProfile;
 import mk.ukim.finki.foafprofile.model.FoafProfileInfo;
 import mk.ukim.finki.foafprofile.model.Friend;
@@ -11,16 +10,21 @@ import org.springframework.stereotype.Service;
 import org.apache.jena.rdf.model.*;
 import org.apache.jena.sparql.vocabulary.FOAF;
 
+import java.lang.String;
+
 import java.io.*;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
 public class FoafProfileImpl implements FoafProfileService {
     @Value("${foafprofile.file.path}")
     private String filePath;
 
     private final FoafProfileRepository foafProfileRepository;
+
+    public FoafProfileImpl(FoafProfileRepository foafProfileRepository) {
+        this.foafProfileRepository = foafProfileRepository;
+    }
 
     @Override
     public FoafProfile createFoafProfile(FoafProfileInfo foafProfileInfo) {
@@ -29,7 +33,7 @@ public class FoafProfileImpl implements FoafProfileService {
 
         //za ovoj del ne sum sigurna
         String fileName = foafProfileInfo.getFirstName() + foafProfileInfo.getLastName();
-        String filePathName = filePath + fileName;
+        String filePathName = filePath + fileName + ".rdf";
         FileWriter out = null;
         try {
             out = new FileWriter(filePathName);
@@ -56,11 +60,7 @@ public class FoafProfileImpl implements FoafProfileService {
         }
         String wholeFileInString = contentBuilder.toString();
 
-        FoafProfile newFoafProfile = new FoafProfile();
-        newFoafProfile.setUri(foafProfileInfo.getUri());
-        newFoafProfile.setProfile(wholeFileInString);
-        newFoafProfile.setProfileFile(filePathName);
-        newFoafProfile.setFoafProfileInfo(foafProfileInfo);
+        FoafProfile newFoafProfile = new FoafProfile(foafProfileInfo.getUri(), wholeFileInString, filePathName, foafProfileInfo);
 
         return foafProfileRepository.save(newFoafProfile);
     }
@@ -111,7 +111,9 @@ public class FoafProfileImpl implements FoafProfileService {
 
     private Resource createFoafProfileResource(Model model, FoafProfileInfo foafProfileInfo) {
 
-        Resource foafProfile = model.createResource(foafProfileInfo.getUri(), FOAF.Person)
+        String totalUri = "https://localhost:8080/profiles/" + foafProfileInfo.getUri();
+
+        Resource foafProfile = model.createResource(totalUri, FOAF.Person)
                 .addProperty(FOAF.firstName, foafProfileInfo.getFirstName())
                 .addProperty(FOAF.lastName, foafProfileInfo.getLastName())
                 .addProperty(FOAF.mbox_sha1sum, foafProfileInfo.getEmail());
@@ -132,7 +134,7 @@ public class FoafProfileImpl implements FoafProfileService {
             foafProfile.addProperty(FOAF.homepage, foafProfileInfo.getHomepage());
         }
         if (foafProfileInfo.getPicture() != null) {
-            foafProfile.addProperty(FOAF.img, (RDFNode) foafProfileInfo.getPicture());
+            foafProfile.addProperty(FOAF.img, foafProfileInfo.getPicture().getName());
         }
         if (foafProfileInfo.getWorkHomepage() != null) {
             foafProfile.addProperty(FOAF.workplaceHomepage, foafProfileInfo.getWorkHomepage());

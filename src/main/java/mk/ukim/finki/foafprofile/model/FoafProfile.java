@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -17,11 +15,12 @@ public class FoafProfile {
     @Id
     private String uri;
 
+    @Column(length = 1024)
     private String profile;
 
     private String profileFile;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private FoafProfileInfo foafProfileInfo;
 
 }

@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             throw new UsernameAlreadyExistsException();
 
         String newpass = passwordEncoder.encode(password);
-        User user = new User(username, email, firstName, lastName, newpass, Role.ROLE_USER);
+        User user = new User(username, newpass, email, firstName, lastName, Role.ROLE_USER);
         return userRepository.save(user);
     }
 

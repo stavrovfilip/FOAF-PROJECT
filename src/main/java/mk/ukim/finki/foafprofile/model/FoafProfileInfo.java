@@ -32,7 +32,7 @@ public class FoafProfileInfo {
 
     private String schoolHomepage;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Friend> myFriends;
 
     public FoafProfileInfo(String uri, String title, String firstName, String lastName, String nickName, String email, String homepage, String phoneNumber, Picture picture, String workHomepage, String workDescription, String schoolHomepage, List<Friend> myFriends) {
