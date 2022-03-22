@@ -24,7 +24,10 @@ public class FoafProfileInfoServiceImpl implements FoafProfileInfoService {
     private final FoafProfileService foafProfileService;
 
     @Override
-    public FoafProfileInfo saveProfile(String title, String firstName, String lastName, String nickName, String email, String homepage, String phoneNumber, Picture picture, String workHomepage, String workDescription, String schoolHomepage, List<Friend> myFriends) {
+    public FoafProfileInfo saveProfile(String title, String firstName, String lastName,
+                                       String nickName, String email, String homepage,
+                                       String phoneNumber, Picture picture, String workHomepage,
+                                       String workDescription, String schoolHomepage, List<Friend> myFriends, String username) {
 
         if (firstName.isEmpty() || firstName == null || lastName.isEmpty()
                 || lastName == null || email.isEmpty() || email == null) {
@@ -47,7 +50,7 @@ public class FoafProfileInfoServiceImpl implements FoafProfileInfoService {
         FoafProfileInfo newProfile = new FoafProfileInfo(uri, title, firstName, lastName, nickName,
                 email, homepage, phoneNumber, picture, workHomepage, workDescription, schoolHomepage, myFriends);
 
-        foafProfileService.createFoafProfile(newProfile);
+        foafProfileService.createFoafProfile(newProfile, username);
         return this.foafProfileInfoRepository.save(newProfile);
 
     }
@@ -55,21 +58,40 @@ public class FoafProfileInfoServiceImpl implements FoafProfileInfoService {
     @Override
     public FoafProfileInfo updateProfile(Long id, String title, String lastName, String nickName, String homepage,
                                          String phoneNumber, Picture picture, String workHomepage,
-                                         String workDescription, String schoolHomepage, List<Friend> myFriends) {
+                                         String workDescription, String schoolHomepage, List<Friend> myFriends, String username) {
 
         FoafProfileInfo foafProfileInfo = this.foafProfileInfoRepository.findById(id).orElseThrow(FoafProfileInfoNotFoundException::new);
-        foafProfileInfo.setTitle(title);
-        foafProfileInfo.setLastName(lastName);
-        foafProfileInfo.setNickName(nickName);
-        foafProfileInfo.setHomepage(homepage);
-        foafProfileInfo.setPhoneNumber(phoneNumber);
-        foafProfileInfo.setPicture(picture);
-        foafProfileInfo.setWorkHomepage(workHomepage);
-        foafProfileInfo.setWorkDescription(workDescription);
-        foafProfileInfo.setSchoolHomepage(schoolHomepage);
+        if (title != null && !title.isEmpty()) {
+            foafProfileInfo.setTitle(title);
+        }
+        if (lastName != null && !lastName.isEmpty()) {
+            foafProfileInfo.setLastName(lastName);
+        }
+        if (nickName != null && !nickName.isEmpty()) {
+            foafProfileInfo.setNickName(nickName);
+        }
+        if (homepage != null && !homepage.isEmpty()) {
+            foafProfileInfo.setHomepage(homepage);
+        }
+        if (phoneNumber != null && !phoneNumber.isEmpty()) {
+            foafProfileInfo.setPhoneNumber(phoneNumber);
+        }
+        if (picture != null) {
+            foafProfileInfo.setPicture(picture);
+        }
+        if (workHomepage != null && !workHomepage.isEmpty()) {
+            foafProfileInfo.setWorkHomepage(workHomepage);
+        }
+        if (workDescription != null && !workDescription.isEmpty()) {
+            foafProfileInfo.setWorkDescription(workDescription);
+        }
+        if (schoolHomepage != null && !schoolHomepage.isEmpty()) {
+            foafProfileInfo.setSchoolHomepage(schoolHomepage);
+        }
+
         foafProfileInfo.setMyFriends(myFriends);
 
-        this.foafProfileService.updateFoafProfile(foafProfileInfo.getUri(), foafProfileInfo);
+        this.foafProfileService.updateFoafProfile(foafProfileInfo.getUri(), foafProfileInfo, username);
         return this.foafProfileInfoRepository.save(foafProfileInfo);
     }
 

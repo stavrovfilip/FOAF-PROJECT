@@ -1,170 +1,156 @@
 <th:block xmlns:th="http://www.thymeleaf.org">
     <div class="container">
-        <form action="/create" method="POST" enctype="multipart/form-data">
+        <form action="/foafprofile/create" method="POST" enctype="multipart/form-data">
+            <input id="id" type="hidden" name="id" th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getId()} : '')">
+
             <h2 class="form-signin-heading text-info">Create your FOAF profile!</h2>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="title" id="title1" value="Mr">
+            <div class="form-check form-check-inline ">
+                <input class="form-check-input" type="radio" name="title" id="title1" value="Mr" th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getTitle()} : '')">
                 <label class="form-check-label" for="title1">
                     Mr
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="title" id="title2" value="Mrs">
+                <input class="form-check-input" type="radio" name="title" id="title2" value="Mrs" th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getTitle()} : '')">
                 <label class="form-check-label" for="title2">
                     Mrs
                 </label>
             </div>
-            <p>
+            <div  class="form-group">
                 <label for="firstName" class="sr-only">First Name</label>
-                <input type="text" id="firstName" name="firstName" class="form-control" placeholder="First Name"
+                <input type="text" id="firstName" name="firstName" class="form-control"
+                       th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getFirstName()} : '')"
+                       placeholder="First Name"
                        required="">
-            </p>
-            <p>
+            </div>
+            <div  class="form-group">
                 <label for="lastName" class="sr-only">Last Name</label>
-                <input type="text" id="lastName" name="lastName" class="form-control" placeholder="Last Name"
+                <input type="text" id="lastName" name="lastName" class="form-control"
+                       th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getLastName()} : '')"
+                       placeholder="Last Name"
                        required="">
-            </p>
-            <p>
+            </div>
+            <div  class="form-group">
                 <label for="nickName">Nick Name</label>
-                <input type="text" id="nickName" name="nickName" class="form-control" placeholder="Nick Name"
-                       required="">
-            </p>
-            <p>
+                <input type="text" id="nickName" name="nickName" class="form-control"
+                       th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getNickName()} : '')"
+                       placeholder="Nick Name">
+            </div>
+            <div  class="form-group">
                 <label for="email" class="sr-only">E-mail</label>
-                <input type="text" id="email" name="email" class="form-control" placeholder="email" required="">
-            </p>
-            <p>
+                <input type="text" id="email" name="email" class="form-control"
+                       th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getEmail()} : '')"
+                       placeholder="email"
+                       required="">
+            </div>
+            <div  class="form-group">
                 <label for="homepage">Homepage</label>
-                <input type="text" id="homepage" name="homepage" class="form-control" placeholder="homepage"
-                       required="">
-            </p>
-            <p>
+                <input type="text" id="homepage" name="homepage" class="form-control"
+                       th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getHomepage()} : '')"
+                       placeholder="homepage">
+            </div>
+            <div  class="form-group">
                 <label for="phoneNumber">Phone Number</label>
-                <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="phone Number"
-                       required="">
-            </p>
-            <p>
+                <input type="text" id="phoneNumber" name="phoneNumber" class="form-control"
+                       th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getPhoneNumber()} : '')"
+                       placeholder="phone Number">
+            </div>
+            <div  class="form-group">
                 <label for="workHomepage">Work Homepage</label>
                 <input type="text" id="workHomepage" name="workHomepage" class="form-control"
-                       placeholder="Work Homepage" required="">
-            </p>
-            <p>
+                       th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getWorkHomepage()} : '')"
+                       placeholder="Work Homepage">
+            </div>
+            <div  class="form-group">
                 <label for="workDescription">Work Description</label>
                 <input type="text" id="workDescription" name="workDescription" class="form-control"
-                       placeholder="Work Homepage" required="">
-            </p>
-            <p>
+                       th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getWorkDescription()} : '')"
+                       placeholder="Work Homepage">
+            </div>
+            <div  class="form-group">
                 <label for="schoolHomepage">School Homepage</label>
                 <input type="text" id="schoolHomepage" name="schoolHomepage" class="form-control"
-                       placeholder="School Homepage" required="">
-            </p>
-            <div>
+                       th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getSchoolHomepage()} : '')"
+                       placeholder="School Homepage">
+            </div>
+            <div  class="form-group">
                 <label for="picture">Picture:</label>
                 <input type="file" class="form-control" id="picture" name="picture" accept="image/*">
             </div>
-            <div>
-                <label> People you know</label>
+            <div class="m-5 form-group">
+                <h1> People you know</h1>
                 <div id="friend1" class="row">
                     <div class="col">
                         <label for="friendFirstName1">Friend First Name</label>
-                        <input type="text" id="friendFirstName1" name="friendFirstName1" class="form-control"
-                               placeholder="Friend First Name" required="">
+                        <input type="text" id="friendFirstName1" name="friendFirstName" class="form-control"
+                               placeholder="Friend First Name">
                     </div>
                     <div class="col">
                         <label for="friendLastName1">Friend Last Name</label>
-                        <input type="text" id="friendLastName1" name="friendLastName1" class="form-control"
-                               placeholder="Friend Last Name" required="">
+                        <input type="text" id="friendLastName1" name="friendLastName" class="form-control"
+                               placeholder="Friend Last Name">
                     </div>
                     <div class="col">
                         <label for="friendEmail1">Friend Email</label>
-                        <input type="text" id="friendEmail1" name="friendEmail1" class="form-control"
-                               placeholder="Friend Email" required="">
+                        <input type="text" id="friendEmail1" name="friendEmail" class="form-control"
+                               placeholder="Friend Email">
                     </div>
                     <div class="col">
                         <label for="friendFoafUri1">Friend Foaf URI</label>
-                        <input type="text" id="friendFoafUri1" name="friendFoafUri1" class="form-control"
-                               placeholder="Friend Foaf URI" required="">
+                        <input type="text" id="friendFoafUri1" name="friendFoafUri" class="form-control"
+                               placeholder="Friend Foaf URI">
                     </div>
                 </div>
-                <!--            <div id="friend2" name="friend2" class="row">-->
-                <!--                <div class="col">-->
-                <!--                    <label for="friendFirstName" >Friend First Name</label>-->
-                <!--                    <input type="text" id="friendFirstName" name="friendFirstName" class="form-control" placeholder="Friend First Name" required="">-->
-                <!--                </div>-->
-                <!--                <div class="col">-->
-                <!--                    <label for="friendLastName">Friend Last Name</label>-->
-                <!--                    <input type="text" id="friendLastName" name="friendLastName" class="form-control" placeholder="Friend Last Name" required="">-->
-                <!--                </div>-->
-                <!--                <div class="col">-->
-                <!--                    <label for="friendEmail">Friend Email</label>-->
-                <!--                    <input type="text" id="friendEmail" name="friendEmail" class="form-control" placeholder="Friend Email" required="">-->
-                <!--                </div>-->
-                <!--                <div class="col">-->
-                <!--                    <label for="friendFoafUri" >Friend Foaf URI</label>-->
-                <!--                    <input type="text" id="friendFoafUri" name="friendFoafUri" class="form-control" placeholder="Friend Foaf URI" required="">-->
-                <!--                </div>-->
+                <div id="friend2" name="friend2" class="row">
+                    <div class="col">
+                        <label for="friendFirstName2">Friend First Name</label>
+                        <input type="text" id="friendFirstName2" name="friendFirstName2" class="form-control"
+                               placeholder="Friend First Name">
+                    </div>
+                    <div class="col">
+                        <label for="friendLastName2">Friend Last Name</label>
+                        <input type="text" id="friendLastName2" name="friendLastName2" class="form-control"
+                               placeholder="Friend Last Name">
+                    </div>
+                    <div class="col">
+                        <label for="friendEmail2">Friend Email</label>
+                        <input type="text" id="friendEmail2" name="friendEmail2" class="form-control"
+                               placeholder="Friend Email">
+                    </div>
+                    <div class="col">
+                        <label for="friendFoafUri2">Friend Foaf URI</label>
+                        <input type="text" id="friendFoafUri2" name="friendFoafUri2" class="form-control"
+                               placeholder="Friend Foaf URI">
+                    </div>
 
-                <!--            </div>-->
-                <!--            <div id="friend3" name="friend3" class="row">-->
-                <!--                <div class="col">-->
-                <!--                    <label for="friendFirstName">Friend First Name</label>-->
-                <!--                    <input type="text" id="friendFirstName" name="friendFirstName" class="form-control" placeholder="Friend First Name" required="">-->
-                <!--                </div>-->
-                <!--                <div class="col">-->
-                <!--                    <label for="friendLastName" >Friend Last Name</label>-->
-                <!--                    <input type="text" id="friendLastName" name="friendLastName" class="form-control" placeholder="Friend Last Name" required="">-->
-                <!--                </div>-->
-                <!--                <div class="col">-->
-                <!--                    <label for="friendEmail" >Friend Email</label>-->
-                <!--                    <input type="text" id="friendEmail" name="friendEmail" class="form-control" placeholder="Friend Email" required="">-->
-                <!--                </div>-->
-                <!--                <div class="col">-->
-                <!--                    <label for="friendFoafUri" >Friend Foaf URI</label>-->
-                <!--                    <input type="text" id="friendFoafUri" name="friendFoafUri" class="form-control" placeholder="Friend Foaf URI" required="">-->
-                <!--                </div>-->
+                </div>
+                <div id="friend3" name="friend3" class="row">
+                    <div class="col">
+                        <label for="friendFirstName3">Friend First Name</label>
+                        <input type="text" id="friendFirstName3" name="friendFirstName3" class="form-control"
+                               placeholder="Friend First Name">
+                    </div>
+                    <div class="col">
+                        <label for="friendLastName3">Friend Last Name</label>
+                        <input type="text" id="friendLastName3" name="friendLastName3" class="form-control"
+                               placeholder="Friend Last Name">
+                    </div>
+                    <div class="col">
+                        <label for="friendEmail3">Friend Email</label>
+                        <input type="text" id="friendEmail3" name="friendEmail3" class="form-control"
+                               placeholder="Friend Email">
+                    </div>
+                    <div class="col">
+                        <label for="friendFoafUri3">Friend Foaf URI</label>
+                        <input type="text" id="friendFoafUri3" name="friendFoafUri3" class="form-control"
+                               placeholder="Friend Foaf URI">
+                    </div>
 
-                <!--            </div>-->
-                <!--                <div id="friend4" name="friend4" class="row">-->
-                <!--                    <div class="col">-->
-                <!--                        <label for="friendFirstName">Friend First Name</label>-->
-                <!--                        <input type="text" id="friendFirstName" name="friendFirstName" class="form-control" placeholder="Friend First Name" required="">-->
-                <!--                    </div>-->
-                <!--                    <div class="col">-->
-                <!--                        <label for="friendLastName" >Friend Last Name</label>-->
-                <!--                        <input type="text" id="friendLastName" name="friendLastName" class="form-control" placeholder="Friend Last Name" required="">-->
-                <!--                    </div>-->
-                <!--                    <div class="col">-->
-                <!--                        <label for="friendEmail">Friend Email</label>-->
-                <!--                        <input type="text" id="friendEmail" name="friendEmail" class="form-control" placeholder="Friend Email" required="">-->
-                <!--                    </div>-->
-                <!--                    <div class="col">-->
-                <!--                        <label for="friendFoafUri" >Friend Foaf URI</label>-->
-                <!--                        <input type="text" id="friendFoafUri" name="friendFoafUri" class="form-control" placeholder="Friend Foaf URI" required="">-->
-                <!--                    </div>-->
-
-                <!--                </div>-->
-                <!--                <div id="friend5" name="friend5" class="row">-->
-                <!--                    <div class="col">-->
-                <!--                        <label for="friendFirstName" >Friend First Name</label>-->
-                <!--                        <input type="text" id="friendFirstName" name="friendFirstName" class="form-control" placeholder="Friend First Name" required="">-->
-                <!--                    </div>-->
-                <!--                    <div class="col">-->
-                <!--                        <label for="friendLastName">Friend Last Name</label>-->
-                <!--                        <input type="text" id="friendLastName" name="friendLastName" class="form-control" placeholder="Friend Last Name" required="">-->
-                <!--                    </div>-->
-                <!--                    <div class="col">-->
-
-                <!--                        <label for="friendEmail" >Friend Email</label>-->
-                <!--                        <input type="text" id="friendEmail" name="friendEmail" class="form-control" placeholder="Friend Email" required="">-->
-                <!--                    </div>-->
-                <!--                    <div class="col">-->
-                <!--                        <label for="friendFoafUri" >Friend Foaf URI</label>-->
-                <!--                        <input type="text" id="friendFoafUri" name="friendFoafUri" class="form-control" placeholder="Friend Foaf URI" required="">-->
-                <!--                    </div>-->
-                <!--                </div>-->
+                </div>
             </div>
 
-            <button id="submit" class="btn btn-lg btn-info btn-block" type="submit">Create my profile!</button>
+
+            <button id="submit" class="btn btn-lg btn-info btn-block mt-5" type="submit">Create my profile!</button>
         </form>
     </div>
 

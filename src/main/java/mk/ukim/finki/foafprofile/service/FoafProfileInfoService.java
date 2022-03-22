@@ -11,11 +11,11 @@ public interface FoafProfileInfoService {
 
     public FoafProfileInfo saveProfile(String title, String firstName, String lastName,
                                        String nickName, String email, String homepage, String phoneNumber, Picture picture,
-                                       String workHomepage, String workDescription, String schoolHomepage, List<Friend> myFriends);
+                                       String workHomepage, String workDescription, String schoolHomepage, List<Friend> myFriends, String username);
 
     public FoafProfileInfo updateProfile(Long id, String title, String lastName,
                                          String nickName, String homepage, String phoneNumber, Picture picture,
-                                         String workHomepage, String workDescription, String schoolHomepage, List<Friend> myFriends);
+                                         String workHomepage, String workDescription, String schoolHomepage, List<Friend> myFriends, String username);
 
     public Optional<FoafProfileInfo> findById(Long id);
 

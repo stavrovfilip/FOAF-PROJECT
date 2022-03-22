@@ -3,5 +3,7 @@
         <h1>RDF Profile</h1>
         <th:block th:if="${profile != null}"
                   th:text="${profile}"></th:block>
+        <a th:href="@{|/foafprofile/download?id=${id}|}">download</a>
+
     </div>
 </th:block>

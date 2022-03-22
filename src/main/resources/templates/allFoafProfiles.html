@@ -1,0 +1,48 @@
+<div xmlns:th="http://www.thymeleaf.org">
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">All Registered users with their  FOAF Profiles</h1>
+      <h3 class="jumbotron-heading">Here you can find all registered FOAF profiles on this site!</h3>
+    </div>
+  </section>
+
+  <div class="container mb-4">
+    <div class="row">
+      <div class="col-12" th:if="${users.size() > 0}">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th scope="col">Username</th>
+              <th scope="col">User's FOAF profile</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}" class="product">
+              <td th:text="${user.getUsername()}"></td>
+              <td>
+                <form th:action="@{'/profile/{id}' (id=${user.getMyProfile().getUri()})}"
+                      th:method="GET">
+                  <button type="submit"
+                          class="btn btn-sm btn-primary">
+                    <i class="">See my profile</i>
+                  </button>
+                </form>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col mb-3">
+        <div class="row">
+          <div class="col-sm-12 col-md-12" >
+            <a href="/foafprofile/create" class="btn btn-block btn-primary add-product-btn">
+              Add new profile!
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

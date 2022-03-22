@@ -15,7 +15,7 @@ public class FoafProfile {
     @Id
     private String uri;
 
-    @Column(length = 1024)
+    @Column(length = 3000)
     private String profile;
 
     private String profileFile;
