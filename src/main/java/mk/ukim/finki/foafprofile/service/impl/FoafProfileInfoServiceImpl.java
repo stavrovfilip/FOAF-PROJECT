@@ -47,11 +47,10 @@ public class FoafProfileInfoServiceImpl implements FoafProfileInfoService {
         // TO DO: stavete go vo app.properites
         String uri = name;
 
-        FoafProfileInfo newProfile = new FoafProfileInfo(uri, title, firstName, lastName, nickName,
-                email, homepage, phoneNumber, picture, workHomepage, workDescription, schoolHomepage, myFriends);
-
+        FoafProfileInfo newProfile =this.foafProfileInfoRepository.save(new FoafProfileInfo(uri, title, firstName, lastName, nickName,
+                email, homepage, phoneNumber, picture, workHomepage, workDescription, schoolHomepage, myFriends));
         foafProfileService.createFoafProfile(newProfile, username);
-        return this.foafProfileInfoRepository.save(newProfile);
+        return newProfile;
 
     }
 
@@ -108,6 +107,14 @@ public class FoafProfileInfoServiceImpl implements FoafProfileInfoService {
     @Override
     public FoafProfileInfo findByEmail(String email) {
         return this.foafProfileInfoRepository.findByEmail(email);
+    }
+
+    @Override
+    public void deleteProfile(String uri, String username) {
+        FoafProfileInfo foafProfileInfo = this.foafProfileInfoRepository.findByUri(uri);
+        if (foafProfileInfo != null){
+            this.foafProfileInfoRepository.delete(foafProfileInfo);
+        }
     }
 
 }

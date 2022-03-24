@@ -21,7 +21,7 @@
             <tr th:each="user : ${users}" class="product">
               <td th:text="${user.getUsername()}"></td>
               <td>
-                <form th:action="@{'/profile/{id}' (id=${user.getMyProfile().getUri()})}"
+                <form th:if="${user.getMyProfile() != null}" th:action="@{'/profile/{id}' (id=${user.getMyProfile().getUri()})}"
                       th:method="GET">
                   <button type="submit"
                           class="btn btn-sm btn-primary">

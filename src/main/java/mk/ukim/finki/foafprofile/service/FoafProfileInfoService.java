@@ -23,4 +23,6 @@ public interface FoafProfileInfoService {
 
     public FoafProfileInfo findByEmail(String email);
 
+    public void deleteProfile(String uri, String username);
+
 }

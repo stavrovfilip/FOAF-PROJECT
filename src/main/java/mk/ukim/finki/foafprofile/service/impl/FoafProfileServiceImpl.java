@@ -36,7 +36,7 @@ public class FoafProfileServiceImpl implements FoafProfileService {
         Model model = ModelFactory.createDefaultModel();
         Resource foafProfile = this.createFoafProfileResource(model, foafProfileInfo);
 
-        String fileName = foafProfileInfo.getFirstName() + foafProfileInfo.getLastName();
+        String fileName = foafProfileInfo.getUri();
         String filePathName = filePath + fileName + ".rdf";
         FileWriter out = null;
         try {
@@ -110,7 +110,17 @@ public class FoafProfileServiceImpl implements FoafProfileService {
         foafProfileRepository.save(foafProfileForUpdate);
         user.setMyProfile(foafProfileForUpdate);
         userRepository.save(user);
-        return  foafProfileForUpdate;
+        return foafProfileForUpdate;
+    }
+
+    @Override
+    public void deleteFoafProfile(String uri, String username) {
+        User user = this.userRepository.findByUsername(username);
+        user.setMyProfile(null);
+        this.userRepository.save(user);
+        this.foafProfileRepository.deleteById(uri);
+        File fileToBeDeleted = new File(filePath + uri + ".rdf");
+        fileToBeDeleted.delete();
     }
 
     @Override
@@ -121,6 +131,47 @@ public class FoafProfileServiceImpl implements FoafProfileService {
     @Override
     public List<FoafProfile> findAll() {
         return this.foafProfileRepository.findAll();
+    }
+
+    @Override
+    public String convertFromRDF(String uri, String format) {
+        FoafProfile foafProfile = this.foafProfileRepository.getById(uri);
+        Model model = ModelFactory.createDefaultModel();
+        model.read(foafProfile.getProfileFile(), "RDF/XML");
+        String[] filePathNameList = foafProfile.getProfileFile().split("\\.");
+        String type = null;
+        if (format.equals("TURTLE")) {
+            type = ".ttl";
+        } else if (format.equals("N-TRIPLES")) {
+            type = ".n3";
+        } else if (format.equals("JSON-LD")) {
+            type = ".jsonld";
+        }
+        String filePathName = filePathNameList[0] + type;
+        FileWriter out = null;
+        try {
+            out = new FileWriter(filePathName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        model.write(out, format);
+        try {
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        StringBuilder contentBuilder = new StringBuilder();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePathName))) {
+
+            String sCurrentLine;
+            while ((sCurrentLine = br.readLine()) != null) {
+                contentBuilder.append(sCurrentLine).append("\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return filePathName;
     }
 
     private Resource createFoafProfileResource(Model model, FoafProfileInfo foafProfileInfo) {

@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
@@ -112,7 +113,7 @@ public class FoafProfileInfoController {
                     phoneNumber, picture1, workHomepage, workDescription, schoolHomepage, friends, username);
         } else {
             foafProfileInfo = this.foafProfileInfoService.saveProfile(title, firstName, lastName, nickName, email, homepage, phoneNumber,
-                    picture1, workHomepage, workDescription, schoolHomepage, friends,username);
+                    picture1, workHomepage, workDescription, schoolHomepage, friends, username);
         }
 
 
@@ -124,13 +125,22 @@ public class FoafProfileInfoController {
     public String showFoafProfile(@PathVariable String id, Model model) {
 
         FoafProfile foafProfile = this.foafProfileService.getFoafProfileByUri(id);
-        String foafProfileString = foafProfile.getProfile();
-        model.addAttribute("profile", foafProfileString);
+        model.addAttribute("profile", foafProfile);
         model.addAttribute("id", foafProfile.getUri());
         model.addAttribute("bodyContent", "myProfile");
 
         return "master-template";
 
+    }
+
+    @DeleteMapping("/foafprofile/delete/{id}")
+    public String deleteFoafProfile(@PathVariable String id, HttpServletRequest req) {
+        //deleting FOAF profile
+        String username = req.getRemoteUser();
+        this.foafProfileService.deleteFoafProfile(id, username);
+        this.foafProfileInfoService.deleteProfile(id, username);
+
+        return "redirect:/profiles";
     }
 
     @RequestMapping(value = "/foafprofile/download", method = RequestMethod.GET)
@@ -139,6 +149,31 @@ public class FoafProfileInfoController {
 
         FoafProfile foafProfile = foafProfileService.getFoafProfileByUri(id);
         File file = new File("./" + foafProfile.getProfileFile());
+        if (file.exists()) {
+
+            String mimeType = URLConnection.guessContentTypeFromName(file.getName());
+            if (mimeType == null) {
+                mimeType = "application/octet-stream";
+            }
+
+            response.setContentType(mimeType);
+
+            response.setHeader("Content-Disposition", String.format("inline; filename=\"" + file.getName() + "\""));
+
+            response.setContentLength((int) file.length());
+
+            InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+
+            FileCopyUtils.copy(inputStream, response.getOutputStream());
+
+        }
+    }
+
+    @RequestMapping(value = "/foafprofile/converter", method = RequestMethod.GET)
+    public void downloadConveredResource(HttpServletResponse response,
+                                         @Param(value = "id") String id, @Param(value = "format") String format) throws IOException {
+
+        File file = new File("./" + foafProfileService.convertFromRDF(id, format));
         if (file.exists()) {
 
             String mimeType = URLConnection.guessContentTypeFromName(file.getName());

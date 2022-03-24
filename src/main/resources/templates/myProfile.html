@@ -2,8 +2,23 @@
     <div class="container">
         <h1>RDF Profile</h1>
         <th:block th:if="${profile != null}"
-                  th:text="${profile}"></th:block>
+                  th:text="${profile.getProfile()}"></th:block>
         <a th:href="@{|/foafprofile/download?id=${id}|}">download</a>
+
+
+        <a th:href="@{|/foafprofile/converter?id=${id}&format=TURTLE|}">Save as TURTLE</a>
+        <a th:href="@{|/foafprofile/converter?id=${id}&format=N-TRIPLES|}">Save as N-TRIPLES</a>
+        <a th:href="@{|/foafprofile/converter?id=${id}&format=JSON-LD|}">Save as JSON-LD</a>
+
+        <th:block>
+            <form th:action="@{'/foafprofile/delete/{id}' (id=${profile.getUri()})}"
+                  th:method="DELETE">
+                <button type="submit"
+                        class="btn btn-sm btn-danger">
+                    <i class="fa fa-trash">Delete</i>
+                </button>
+            </form>
+        </th:block>
 
     </div>
 </th:block>
