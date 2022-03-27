@@ -1,39 +1,49 @@
 <th:block xmlns:th="http://www.thymeleaf.org">
 
-  <div class="container" >
+  <div class="container m-5" >
     <h1 th:if="${hasError}" th:text="${error}"></h1>
   </div>
-  <div class="container">
+  <div class="container border-warning">
     <form class="form-signin mt-xl-5" method="post" action="/register">
-      <h2 class="form-signin-heading text-warning">Register form</h2>
-      <p>
-        <label for="firstname" class="sr-only">First name</label>
+      <br/>
+      <div class="bg-info border-warning">
+        <br/>
+      <h4 class="form-signin-heading text-light text-center">Fill in the form bellow in order to register!</h4>
+        <br/>
+      </div>
+      <div class="row">
+      <p class="col">
+        <label for="firstname">First name</label>
         <input type="text" id="firstname" name="firstname" class="form-control" placeholder="Name" required="" autofocus="">
       </p>
-      <p>
-        <label for="lastname" class="sr-only">Last name</label>
+      <p class="col">
+        <label for="lastname">Last name</label>
         <input type="text" id="lastname" name="lastname" class="form-control" placeholder="Last name" required="" autofocus="">
       </p>
+      </div>
       <p>
-        <label for="username" class="sr-only">Username</label>
+        <label for="username">Username</label>
         <input type="text" id="username" name="username" class="form-control" placeholder="Username" required="" autofocus="">
       </p>
-      <p>
-        <label for="password" class="sr-only">Password</label>
+      <div class="row">
+      <p class="col">
+        <label for="password">Password</label>
         <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="">
       </p>
-      <p>
-        <label for="repeatedPassword" class="sr-only">Repeat password</label>
+      <p class="col">
+        <label for="repeatedPassword">Repeat password</label>
         <input type="password" id="repeatedPassword" name="repeatedPassword" class="form-control" placeholder="Repeat Password" required="">
       </p>
+      </div>
       <p>
-        <label for="email" class="sr-only">Email</label>
-        <input type="text" id="email" name="email" class="form-control" placeholder="email" required="" autofocus="">
+        <label for="email">Email</label>
+        <input type="text" id="email" name="email" class="form-control" placeholder="Email" required="" autofocus="">
       </p>
 
       <button class="btn btn-lg btn-warning btn-block" type="submit">Sign up!</button>
     </form>
-    <a href="/login" class="btn btn-block btn-light">Already have an account? Sign in!</a>
+    <br/>
+    <a href="/login" class="btn btn-lg btn-block btn-info">Already have an account? Sign in!</a>
   </div>
 
 </th:block>
