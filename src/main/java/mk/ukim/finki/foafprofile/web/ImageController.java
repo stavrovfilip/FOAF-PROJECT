@@ -17,7 +17,7 @@ public class ImageController {
     @GetMapping(value = "/image", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<Resource> image() throws IOException {
         final ByteArrayResource inputStream = new ByteArrayResource(Files.readAllBytes(Paths.get(
-                "C:\\Users\\Sandra\\IdeaProjects\\FOAF-PROJECT\\src\\main\\resources\\static\\images\\slika60.jpg"
+                "src\\main\\resources\\static\\images\\slika60.jpg"
         )));
         return ResponseEntity
                 .status(HttpStatus.OK)

@@ -6,12 +6,11 @@
   <div class="container border-warning">
     <form class="form-signin mt-xl-5" method="post" action="/register">
       <br/>
-      <div class="bg-info border-warning">
         <br/>
-      <h4 class="form-signin-heading text-light text-center">Fill in the form bellow in order to register!</h4>
+      <br/>
+      <h4 class="form-signin-heading  text-center" id="text1">Fill in the form bellow in order to register!</h4>
         <br/>
-      </div>
-      <div class="row">
+      <div class="row" id="text1">
       <p class="col">
         <label for="firstname">First name</label>
         <input type="text" id="firstname" name="firstname" class="form-control" placeholder="Name" required="" autofocus="">
@@ -40,10 +39,10 @@
         <input type="text" id="email" name="email" class="form-control" placeholder="Email" required="" autofocus="">
       </p>
 
-      <button class="btn btn-lg btn-warning btn-block" type="submit">Sign up!</button>
+      <button class="btn btn-lg btn-light btn-block border border-info" type="submit">Sign up!</button>
     </form>
     <br/>
-    <a href="/login" class="btn btn-lg btn-block btn-info">Already have an account? Sign in!</a>
+    <a href="/login" class="btn btn-lg btn-block text-light border border-light" style="background: #0B3D59">Already have an account? Sign in!</a>
   </div>
 
 </th:block>

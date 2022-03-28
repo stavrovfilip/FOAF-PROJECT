@@ -2,52 +2,58 @@
     <div class=" mx-auto">
         <br/>
         <br/>
-        <div class="container mt-5">
-            <span class="text-info d-flex justify-content-center" ><i class="fa fa-user-circle" id="user-icon" aria-hidden="true"></i></span>
-            <h3  class="text-center text-warning font-weight-bold">My RDF Profile</h3>
+        <div class="container mt-5" id="text1">
+            <span class="d-flex justify-content-center" id="text1"><i class="fa fa-user-circle" id="user-icon"
+                                                                      aria-hidden="true"></i></span>
+            <h3 class="text-center  font-weight-bold" id="text1">My RDF Profile</h3>
             <br/>
-            <textarea class="bg-info text-light ui-state-disabled" id="box">
+            <textarea class="text-light ui-state-disabled" style="background: #0B3D59">
                 <th:block th:if="${profile != null}"
                           th:text="${profile.getProfile()}"></th:block>
             </textarea>
-
-            <a th:href="@{|/foafprofile/download?id=${id}|}" class="btn btn-lg btn-block btn-info">Save my FOAF
-                profile as document!</a>
-            <br/>
-                <div class="btn-group d-flex justify-content-center" role="group">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-lg btn-info btn-block dropdown-toggle"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Download FOAF profile in different format
-                    </button>
-
-                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                        <a th:href="@{|/foafprofile/converter?id=${id}&format=TURTLE|}" class="dropdown-item">Save FOAF
-                            profile TURTLE</a>
-                        <a th:href="@{|/foafprofile/converter?id=${id}&format=N-TRIPLES|}" class="dropdown-item">Save FOAF
-                            profile as N-TRIPLES</a>
-                        <a th:href="@{|/foafprofile/converter?id=${id}&format=JSON-LD|}" class="dropdown-item">Save FOAF
-                            profile as JSON-LD</a>
-
-                    </div>
+            <div class="row text-center">
+                <div class="col">
+                    <a th:href="@{|/foafprofile/download?id=${id}|}" class="btn btn-lg btn-block text-light" style="background: #0B3D59">Save my FOAF
+                        profile as document!</a>
                 </div>
-                <div>
+                <div class="text-center col">
                     <th:block>
                         <form th:action="@{'/foafprofile/delete/{id}' (id=${profile.getUri()})}"
                               th:method="DELETE">
                             <button type="submit"
-                                    class="btn btn-lg btn-block btn-danger">
+                                    class="btn btn-lg btn-light btn-block">
                                 <i class="fa fa-trash">Delete</i>
                             </button>
                         </form>
                     </th:block>
                 </div>
+            </div>
 
+            <br/>
+            <div class="row text-center">
+                <div class="col">
+                    <a th:href="@{|/foafprofile/converter?id=${id}&format=TURTLE|}" class="btn btn-lg btn-block btn-light">Save
+                        FOAF
+                        profile TURTLE</a>
+                </div>
+                <div class="col">
+                    <a th:href="@{|/foafprofile/converter?id=${id}&format=N-TRIPLES|}" class="btn btn-lg btn-block text-light"
+                       style="background: #0B3D59">Save FOAF
+                        profile as N-TRIPLES</a>
+                </div>
+                <div class="col">
+                    <a th:href="@{|/foafprofile/converter?id=${id}&format=JSON-LD|}" class="btn btn-lg btn-block btn-light">Save
+                        FOAF
+                        profile as JSON-LD</a>
+                </div>
+
+            </div>
+            <br/>
 
 
 
 
         </div>
-
 
 
     </div>

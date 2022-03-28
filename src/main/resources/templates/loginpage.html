@@ -2,11 +2,13 @@
   <div class="container">
     <br/>
     <form class="form-signin mt-xl-5" method="post" action="/login">
-      <div class="bg-warning align-center justify-center">
+      <div class="align-center justify-center">
         <br/>
-<!--        ova mozeme gradient da go napraime!-->
-        <h4 class="form-signin-heading text-dark text-center">Sign in!</h4>
-        <br/>
+
+        <h4 class="form-signin-heading  text-center" id="text1">Sign in!</h4>
+        <div class="text-center mt-3">
+          <img class="rounded-circle border border-light" src="../static/images/logologin.png" width="150" th:src="@{images/logologin.png}"/>
+        </div>
       </div>
       <br/>
       <p>
@@ -22,9 +24,9 @@
         <div th:text="${error}" class="text-danger"></div>
       </div>
 
-      <button id="submit" class="btn btn-lg btn-info btn-block" type="submit">Sign in</button>
+      <button id="submit" class="btn btn-lg btn-light btn-block border border-info" type="submit">Sign in</button>
     </form>
     <br/>
-    <a href="/register" class="btn btn-lg btn-block btn-warning">You don't have an account? Sign up here!</a>
+    <a href="/register" class="btn btn-lg btn-block text-light border border-light" style="background: #0B3D59">You don't have an account? Sign up here!</a>
   </div>
 </th:block>

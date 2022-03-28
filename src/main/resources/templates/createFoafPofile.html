@@ -1,14 +1,18 @@
-<html xmlns:th="http://www.thymeleaf.org">
-    <div class="container">
+<div xmlns:th="http://www.thymeleaf.org">
+
+    <div class="container" id="text1">
         <form action="/foafprofile/create" method="POST" enctype="multipart/form-data">
             <br/>
             <br/>
             <br/>
             <input id="id" type="hidden" name="id"
                    th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getId()} : '')">
-            <div class="mr-5 ml-5">
-                <h2 class="form-signin-heading text-info">Create your FOAF profile!</h2>
-                <div class="row ml-1">
+            <div class="mr-5 ml-5 mt-2">
+                <h3 class="form-signin-heading text-center" id="text1">Create your FOAF profile!</h3>
+                <div class="text-center mt-2">
+                    <img  src="../static/images/trlogo.png" width="150px" th:src="@{images/trlogo.png}"/>
+                </div>
+                <div class="row ml-1 mt-2">
                     <label>Select your title:</label>
                     <div class="form-check form-check-inline ml-1">
                         <input class="form-check-input" type="radio" name="title" id="title1" value="Mr"
@@ -95,8 +99,8 @@
                     <input type="file" class="form-control" id="picture" name="picture" accept="image/*">
                 </div>
             </div>
-            <div class="m-5 form-group">
-                <h1 class="text-warning"> People you know</h1>
+            <div class="m-2 form-group" id="text1">
+                <h3 class="text-center" id="text1"> People you know</h3>
                 <div id="friend1" class="row">
                     <div class="col">
                         <label for="friendFirstName1">Friend First Name</label>
@@ -141,7 +145,6 @@
                                placeholder="Friend Foaf URI">
                     </div>
 
-                </div>
                 <div id="friend3" name="friend3" class="row">
                     <div class="col">
                         <label for="friendFirstName3">Friend First Name</label>
@@ -171,5 +174,4 @@
             <button id="submit" class="btn btn-lg btn-info btn-block mt-5" type="submit">Create my profile!</button>
         </form>
     </div>
-
-</html>
+</div>

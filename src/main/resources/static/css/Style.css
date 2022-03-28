@@ -4,6 +4,10 @@
     background-size: cover;
 
 }
+#headerid{
+    background: rgb(9,63,93);
+    background: linear-gradient(130deg, rgba(89,185,213,1) 45%,rgba(9,63,93,1)  45%);
+}
  #text1{
     color: #0B3D59;
 }

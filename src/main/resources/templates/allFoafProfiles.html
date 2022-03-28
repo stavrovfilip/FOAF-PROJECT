@@ -1,38 +1,48 @@
 <div xmlns:th="http://www.thymeleaf.org">
-  <section class="jumbotron text-center ">
-    <div class="container">
-      <span class=" mt-5 text-info d-flex justify-content-center"><i class="fa fa-users" id="user-icon" aria-hidden="true"></i></span>
+  <section class=" text-center ">
+    <br/>
+    <div class="container ">
+      <br/>
+      <span class=" mt-5 d-flex justify-content-center" id="text1"><i class="fa fa-users" id="user-icon" aria-hidden="true"></i></span>
 
-      <h3 class="text-info mt-1">All Registered users with their FOAF Profiles</h3>
-      <h4 class="text-warning ">Here you can find all registered FOAF profiles on this site!</h4>
+      <h3 class="text mt-1" id="text1">All Registered users with their FOAF Profiles</h3>
+      <h4 class="text-info ">Here you can find all registered FOAF profiles on this site!</h4>
 
     </div>
+    <br/>
   </section>
-
-  <div class="row card-container">
-    <div>
-      <div class="card border border-info" th:if="${users.size() > 0}" th:each="user : ${users}">
-        <img class="card-img-top rounded-circle" src="../static/images/daniele-levis-pelusi-88q5y8oHQto-unsplash.jpg" alt="...">
-        <div class="card-body">
-          <h5 class="card-title" th:text="${user.getUsername()}" id="text1"></h5>
-          <form th:if="${user.getMyProfile() != null}" th:action="@{'/profile/{id}' (id=${user.getMyProfile().getUri()})}"
-                th:method="GET">
-            <button type="submit"
-                    class="btn btn-sm btn-info">
-              <i class="text-light">See my profile</i>
-            </button>
-          </form>
+  <div class="container">
+    <div class="row card-container ml-5">
+      <div class="row">
+        <div class="card border border-light col-sm-6"  th:if="${users.size() > 0}" th:each="user : ${users}"
+        style="width: 200px; height: 200px; background: #0B3D59">
+          <div class="text-center mt-3">
+            <img class="rounded-circle border border-light" src="../static/images/robot.png" width="75" th:src="@{images/robot.png}"/>
+          </div>
+          <div class="card-body text-center ">
+            <h5 class="card-title text-light" th:text="${user.getUsername()}" ></h5>
+            <form th:if="${user.getMyProfile() != null}" th:action="@{'/profile/{id}' (id=${user.getMyProfile().getUri()})}"
+                  th:method="GET">
+              <button type="submit"
+                      class="btn btn-sm btn-light">
+                <i class="text-info">See my profile</i>
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div>
-    <div class="col-sm-12 col-md-12" >
-      <a href="/foafprofile/create" class="btn btn-block btn-info add-product-btn">
-        Add new profile!
-      </a>
+    <br/>
+    <div>
+      <div class="col-sm-12 col-md-12" >
+        <a href="/foafprofile/create" class="btn btn-block btn-info add-product-btn">
+          Add new profile!
+        </a>
+      </div>
     </div>
   </div>
+
+
 </div>
 
 
