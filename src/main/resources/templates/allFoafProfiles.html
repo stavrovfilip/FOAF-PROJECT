@@ -9,43 +9,30 @@
     </div>
   </section>
 
-  <div class="container mb-4 justify-content-center">
-    <div class="row">
-      <div class="col-12" th:if="${users.size() > 0}">
-        <div class="table-responsive">
-          <table class="table table-striped  justify-content-center">
-            <thead>
-            <tr id="text1">
-              <th scope="col">Username</th>
-              <th scope="col">User's FOAF profile</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="user : ${users}">
-              <td th:text="${user.getUsername()}" id="text1"></td>
-              <td>
-                <form th:if="${user.getMyProfile() != null}" th:action="@{'/profile/{id}' (id=${user.getMyProfile().getUri()})}"
-                      th:method="GET">
-                  <button type="submit"
-                          class="btn btn-sm btn-info">
-                    <i class="text-light">See my profile</i>
-                  </button>
-                </form>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="col mb-3">
-        <div class="row">
-          <div class="col-sm-12 col-md-12" >
-            <a href="/foafprofile/create" class="btn btn-block btn-info add-product-btn">
-              Add new profile!
-            </a>
-          </div>
+  <div class="row card-container">
+    <div>
+      <div class="card border border-info" th:if="${users.size() > 0}" th:each="user : ${users}">
+        <img class="card-img-top rounded-circle" src="../static/images/daniele-levis-pelusi-88q5y8oHQto-unsplash.jpg" alt="...">
+        <div class="card-body">
+          <h5 class="card-title" th:text="${user.getUsername()}" id="text1"></h5>
+          <form th:if="${user.getMyProfile() != null}" th:action="@{'/profile/{id}' (id=${user.getMyProfile().getUri()})}"
+                th:method="GET">
+            <button type="submit"
+                    class="btn btn-sm btn-info">
+              <i class="text-light">See my profile</i>
+            </button>
+          </form>
         </div>
       </div>
     </div>
   </div>
+  <div>
+    <div class="col-sm-12 col-md-12" >
+      <a href="/foafprofile/create" class="btn btn-block btn-info add-product-btn">
+        Add new profile!
+      </a>
+    </div>
+  </div>
 </div>
+
+
