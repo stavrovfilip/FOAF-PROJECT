@@ -1,88 +1,102 @@
-<th:block xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
     <div class="container">
         <form action="/foafprofile/create" method="POST" enctype="multipart/form-data">
             <br/>
             <br/>
             <br/>
-            <input id="id" type="hidden" name="id" th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getId()} : '')">
-
-            <h2 class="form-signin-heading text-info">Create your FOAF profile!</h2>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="title" id="title1" value="Mr" th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getTitle()} : '')">
-                <label class="form-check-label" for="title1">
-                    Mr
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="title" id="title2" value="Mrs" th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getTitle()} : '')">
-                <label class="form-check-label" for="title2">
-                    Mrs
-                </label>
-            </div>
-            <div class="row">
-            <div  class="form-group col">
-                <label for="firstName" class="sr-only">First Name</label>
-                <input type="text" id="firstName" name="firstName" class="form-control"
-                       th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getFirstName()} : '')"
-                       placeholder="First Name"
-                       required="">
-            </div>
-            <div  class="form-group col">
-                <label for="lastName" class="sr-only">Last Name</label>
-                <input type="text" id="lastName" name="lastName" class="form-control"
-                       th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getLastName()} : '')"
-                       placeholder="Last Name"
-                       required="">
-            </div>
-                <div  class="form-group col">
-                    <input type="text" id="nickName" name="nickName" class="form-control"
-                           th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getNickName()} : '')"
-                           placeholder="Nick Name">
+            <input id="id" type="hidden" name="id"
+                   th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getId()} : '')">
+            <div class="mr-5 ml-5">
+                <h2 class="form-signin-heading text-info">Create your FOAF profile!</h2>
+                <div class="row ml-1">
+                    <label>Select your title:</label>
+                    <div class="form-check form-check-inline ml-1">
+                        <input class="form-check-input" type="radio" name="title" id="title1" value="Mr"
+                               th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getTitle()} : '')">
+                        <label class="form-check-label" for="title1">
+                            Mr
+                        </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="title" id="title2" value="Mrs"
+                               th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getTitle()} : '')">
+                        <label class="form-check-label" for="title2">
+                            Mrs
+                        </label>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-            <div  class="form-group col">
-                <input type="text" id="email" name="email" class="form-control"
-                       th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getEmail()} : '')"
-                       placeholder="email"
-                       required="">
-            </div>
-                <div  class="form-group col">
-                    <input type="text" id="phoneNumber" name="phoneNumber" class="form-control"
-                           th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getPhoneNumber()} : '')"
-                           placeholder="phone Number">
+                <div class="row">
+                    <div class="form-group col">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" name="firstName" class="form-control"
+                               th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getFirstName()} : '')"
+                               placeholder="Enter your first name here"
+                               required="">
+                    </div>
+                    <div class="form-group col">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" class="form-control"
+                               th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getLastName()} : '')"
+                               placeholder="Enter your last name here"
+                               required="">
+                    </div>
+                    <div class="form-group col">
+                        <label for="nickName">Nick Name</label>
+                        <input type="text" id="nickName" name="nickName" class="form-control"
+                               th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getNickName()} : '')"
+                               placeholder="Enter your nick name here">
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-            <div  class="form-group col">
-                <input type="text" id="homepage" name="homepage" class="form-control"
-                       th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getHomepage()} : '')"
-                       placeholder="homepage">
-            </div>
-                <div  class="form-group col">
-                    <input type="text" id="schoolHomepage" name="schoolHomepage" class="form-control"
-                           th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getSchoolHomepage()} : '')"
-                           placeholder="School Homepage">
+                <div class="row">
+                    <div class="form-group col">
+                        <label for="email">Email</label>
+                        <input type="text" id="email" name="email" class="form-control"
+                               th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getEmail()} : '')"
+                               placeholder="Enter your email here"
+                               required="">
+                    </div>
+                    <div class="form-group col">
+                        <label for="phoneNumber">Phone Number</label>
+                        <input type="text" id="phoneNumber" name="phoneNumber" class="form-control"
+                               th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getPhoneNumber()} : '')"
+                               placeholder="Enter your phone number here">
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-            <div  class="form-group col">
-                <input type="text" id="workHomepage" name="workHomepage" class="form-control"
-                       th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getWorkHomepage()} : '')"
-                       placeholder="Work Homepage">
-            </div>
-            <div  class="form-group col">
-                <input type="text" id="workDescription" name="workDescription" class="form-control"
-                       th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getWorkDescription()} : '')"
-                       placeholder="Work Homepage">
-            </div>
-            </div>
-            <div  class="form-group m-5">
-                <label for="picture">Picture:</label>
-                <input type="file" class="form-control" id="picture" name="picture" accept="image/*">
+                <div class="row">
+                    <div class="form-group col">
+                        <label for="homepage">Homepage</label>
+                        <input type="text" id="homepage" name="homepage" class="form-control"
+                               th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getHomepage()} : '')"
+                               placeholder="If you have homepage, enter it here">
+                    </div>
+                    <div class="form-group col">
+                        <label for="schoolHomepage">School Homepage</label>
+                        <input type="text" id="schoolHomepage" name="schoolHomepage" class="form-control"
+                               th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getSchoolHomepage()} : '')"
+                               placeholder="Enter your currently or previous school homepage here">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col">
+                        <label for="workHomepage">Work Homepage</label>
+                        <input type="text" id="workHomepage" name="workHomepage" class="form-control"
+                               th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getWorkHomepage()} : '')"
+                               placeholder="If you are currently working, enter work homepage here">
+                    </div>
+                    <div class="form-group col">
+                        <label for="workDescription">Work Description</label>
+                        <input type="text" id="workDescription" name="workDescription" class="form-control"
+                               th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getWorkDescription()} : '')"
+                               placeholder="If you are currently working, enter work description here">
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <label for="picture">Picture:</label>
+                    <input type="file" class="form-control" id="picture" name="picture" accept="image/*">
+                </div>
             </div>
             <div class="m-5 form-group">
-                <h1> People you know</h1>
+                <h1 class="text-warning"> People you know</h1>
                 <div id="friend1" class="row">
                     <div class="col">
                         <label for="friendFirstName1">Friend First Name</label>
@@ -158,4 +172,4 @@
         </form>
     </div>
 
-</th:block>
+</html>

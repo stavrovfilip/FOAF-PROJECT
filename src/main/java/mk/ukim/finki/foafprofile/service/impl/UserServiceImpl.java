@@ -1,6 +1,7 @@
 package mk.ukim.finki.foafprofile.service.impl;
 
 import lombok.AllArgsConstructor;
+import mk.ukim.finki.foafprofile.model.FoafProfile;
 import mk.ukim.finki.foafprofile.model.User;
 import mk.ukim.finki.foafprofile.model.enumeration.Role;
 import mk.ukim.finki.foafprofile.model.exceptions.InvalidUserCredentialException;
@@ -57,6 +58,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public List<User> findAll() {
         return this.userRepository.findAll();
+    }
+
+    @Override
+    public FoafProfile findFoafProfileByUsername(String username) {
+        User user = this.userRepository.findByUsername(username);
+        return user.getMyProfile();
+
     }
 
     @Override

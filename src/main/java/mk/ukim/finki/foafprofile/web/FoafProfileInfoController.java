@@ -3,10 +3,7 @@ package mk.ukim.finki.foafprofile.web;
 import lombok.AllArgsConstructor;
 import mk.ukim.finki.foafprofile.model.*;
 import mk.ukim.finki.foafprofile.model.dto.FriendDto;
-import mk.ukim.finki.foafprofile.service.FoafProfileInfoService;
-import mk.ukim.finki.foafprofile.service.FoafProfileService;
-import mk.ukim.finki.foafprofile.service.FriendService;
-import mk.ukim.finki.foafprofile.service.PictureService;
+import mk.ukim.finki.foafprofile.service.*;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.List;
 
 
 @Controller
@@ -29,6 +25,7 @@ public class FoafProfileInfoController {
     private final FoafProfileInfoService foafProfileInfoService;
     private final FoafProfileService foafProfileService;
     private final FriendService friendService;
+    private final UserService userService;
     private final PictureService pictureService;
 
     @GetMapping("/foafprofile/create")
@@ -117,14 +114,24 @@ public class FoafProfileInfoController {
         }
 
 
-        return "redirect:/profile/" + foafProfileInfo.getUri().toString();
+        return "redirect:/profile";
 
     }
 
-    @GetMapping("/profile/{id}")
-    public String showFoafProfile(@PathVariable String id, Model model) {
+    @GetMapping("/profile")
+    public String showFoafProfile(HttpServletRequest request, Model model) {
+        String username = request.getRemoteUser();
+        FoafProfile foafProfile = userService.findFoafProfileByUsername(username);
+        model.addAttribute("profile", foafProfile);
+        model.addAttribute("id", foafProfile.getUri());
+        model.addAttribute("bodyContent", "myProfile");
 
-        FoafProfile foafProfile = this.foafProfileService.getFoafProfileByUri(id);
+        return "master-template";
+
+    }
+    @GetMapping("/profile/{id}")
+    public String showFoafProfileById(@PathVariable String id, Model model) {
+        FoafProfile foafProfile = foafProfileService.getFoafProfileByUri(id);
         model.addAttribute("profile", foafProfile);
         model.addAttribute("id", foafProfile.getUri());
         model.addAttribute("bodyContent", "myProfile");

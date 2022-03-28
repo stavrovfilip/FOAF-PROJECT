@@ -1,5 +1,6 @@
 package mk.ukim.finki.foafprofile.service;
 
+import mk.ukim.finki.foafprofile.model.FoafProfile;
 import mk.ukim.finki.foafprofile.model.User;
 import mk.ukim.finki.foafprofile.model.enumeration.Role;
 
@@ -14,4 +15,6 @@ public interface UserService {
     User findUserByEmail(String email);
 
     List<User> findAll();
+
+    FoafProfile findFoafProfileByUsername(String username);
 }
