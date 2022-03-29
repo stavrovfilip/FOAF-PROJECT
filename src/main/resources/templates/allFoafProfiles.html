@@ -14,7 +14,7 @@
   <div class="container">
     <div class="row card-container ml-5">
       <div class="row">
-        <div class="card border border-light col-sm-6"  th:if="${users.size() > 0}" th:each="user : ${users}"
+        <div class="card border border-light col-sm-4"  th:if="${users.size() > 0}" th:each="user : ${users}"
         style="width: 200px; height: 200px; background: #0B3D59">
           <div class="text-center mt-3">
             <img class="rounded-circle border border-light" src="../static/images/robot.png" width="75" th:src="@{images/robot.png}"/>

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import mk.ukim.finki.foafprofile.model.User;
 import mk.ukim.finki.foafprofile.model.exceptions.InvalidUserCredentialException;
 import mk.ukim.finki.foafprofile.model.exceptions.PasswordsDoNotMatchException;
+import mk.ukim.finki.foafprofile.service.EmailService;
 import mk.ukim.finki.foafprofile.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,12 +12,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @AllArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final EmailService emailService;
 
     @GetMapping("/register")
     public String getRegisterPage(@RequestParam(required = false) String error, Model model) {
@@ -47,10 +50,11 @@ public class UserController {
                            @RequestParam String repeatedPassword,
                            @RequestParam String email) {
         try {
-            this.userService.register(username, email, firstname, lastname, password, repeatedPassword);
+            User user = this.userService.register(username, email, firstname, lastname, password, repeatedPassword);
+            this.emailService.sendMail(user);
             return "redirect:/login";
 
-        } catch (InvalidUserCredentialException | PasswordsDoNotMatchException exception) {
+        } catch (InvalidUserCredentialException | PasswordsDoNotMatchException | MessagingException exception) {
             return "redirect:/register?error=" + exception.getMessage();
         }
 
