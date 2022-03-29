@@ -103,6 +103,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public User findUserByFoafProfile(FoafProfile foafProfile) {
+
+        return this.userRepository.findByMyProfile(foafProfile);
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findById(username).orElseThrow(InvalidModuleDescriptorException::new);
         UserDetails user1 = new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),

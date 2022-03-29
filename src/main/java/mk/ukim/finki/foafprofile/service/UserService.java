@@ -17,4 +17,6 @@ public interface UserService {
     List<User> findAll();
 
     FoafProfile findFoafProfileByUsername(String username);
+
+    User findUserByFoafProfile(FoafProfile foafProfile);
 }

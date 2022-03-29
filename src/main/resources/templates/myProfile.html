@@ -2,7 +2,7 @@
     <div class=" mx-auto">
         <br/>
         <br/>
-        <div class="container mt-5" id="text1">
+        <div class="container mt-5" id="text1" th:if="${profile != null}">
             <span class="d-flex justify-content-center" id="text1"><i class="fa fa-user-circle" id="user-icon"
                                                                       aria-hidden="true"></i></span>
             <h3 class="text-center  font-weight-bold" id="text1">My RDF Profile</h3>
@@ -13,36 +13,48 @@
             </textarea>
             <div class="row text-center">
                 <div class="col">
-                    <a th:href="@{|/foafprofile/download?id=${id}|}" class="btn btn-lg btn-block text-light" style="background: #0B3D59">Save my FOAF
+                    <a th:href="@{|/foafprofile/download?id=${profile.getUri()}|}" class="btn btn-lg btn-block text-light" style="background: #0B3D59">Save my FOAF
                         profile as document!</a>
                 </div>
-                <div class="text-center col">
-                    <th:block>
+                <div class="text-center col" id="text1">
+                    <th:block th:if ="${signinuser == foafprofileowner}">
                         <form th:action="@{'/foafprofile/delete/{id}' (id=${profile.getUri()})}"
                               th:method="DELETE">
                             <button type="submit"
                                     class="btn btn-lg btn-light btn-block">
-                                <i class="fa fa-trash">Delete</i>
+                                <i class="fa fa-trash" id="text1">Delete</i>
                             </button>
                         </form>
                     </th:block>
                 </div>
+                <div class="text-center col">
+                    <th:block th:if ="${signinuser == foafprofileowner}">
+                        <form th:action="@{'/foafprofile/edit/{id}' (id=${profile.getUri()})}"
+                              th:method="GET">
+                            <button type="submit"
+                                    class="btn btn-lg btn-block text-light" style="background: #0B3D59">
+                                Edit your FOAF profile
+                            </button>
+                        </form>
+                    </th:block>
+                </div>
+
             </div>
 
             <br/>
             <div class="row text-center">
-                <div class="col">
-                    <a th:href="@{|/foafprofile/converter?id=${id}&format=TURTLE|}" class="btn btn-lg btn-block btn-light">Save
+                <div class="col" id="text1">
+                    <a th:href="@{|/foafprofile/converter?id=${profile.getUri()}&format=TURTLE|}" class="btn btn-lg btn-block btn-light" id="text1">Save
                         FOAF
                         profile TURTLE</a>
                 </div>
                 <div class="col">
-                    <a th:href="@{|/foafprofile/converter?id=${id}&format=N-TRIPLES|}" class="btn btn-lg btn-block text-light"
+                    <a th:href="@{|/foafprofile/converter?id=${profile.getUri()}&format=N-TRIPLES|}" class="btn btn-lg btn-block text-light"
                        style="background: #0B3D59">Save FOAF
                         profile as N-TRIPLES</a>
                 </div>
-                <div class="col">
-                    <a th:href="@{|/foafprofile/converter?id=${id}&format=JSON-LD|}" class="btn btn-lg btn-block btn-light">Save
+                <div class="col" id="text1">
+                    <a th:href="@{|/foafprofile/converter?id=${profile.getUri()}&format=JSON-LD|}" class="btn btn-lg btn-block btn-light" id="text1">Save
                         FOAF
                         profile as JSON-LD</a>
                 </div>
@@ -54,6 +66,15 @@
 
 
         </div>
+    <div th:if="${profile == null}">
+        <br/>
+        <h5 class="mt-5 text-center">Sorry, you haven't created your FOAF profile!</h5>
+        <div class="container col-lg-6 text-center">
+            <a href="/foafprofile/create" class="btn btn-lg btn-block text-light border border-light"
+               style="background: #0B3D59">Create your FOAF profile here</a>
+
+        </div>
+    </div>
 
 
     </div>

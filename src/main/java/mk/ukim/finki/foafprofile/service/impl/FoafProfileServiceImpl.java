@@ -257,12 +257,12 @@ public class FoafProfileServiceImpl implements FoafProfileService {
         List<Friend> myFriends = foafProfileInfo.getMyFriends();
         if (!myFriends.isEmpty()) {
             myFriends.forEach(myFriend -> {
-                if (myFriend.getFoafProfileUri() != null && myFriend.getFoafProfileUri() != "") {
+                if (myFriend.getFoafProfileUri() != null || !myFriend.getFoafProfileUri().isEmpty()) {
                     foafProfile.addProperty(FOAF.knows, model.createResource(myFriend.getFoafProfileUri(), FOAF.Person)
                             .addProperty(FOAF.firstName, myFriend.getFirstName())
                             .addProperty(FOAF.lastName, myFriend.getLastName())
                             .addProperty(FOAF.mbox_sha1sum, myFriend.getEmail()));
-                } else if (myFriend.getEmail() != null && myFriend.getEmail() != "") {
+                } else if (myFriend.getEmail() != null || !myFriend.getEmail().isEmpty()) {
                     String newUri = "https://localhost:8080/profiles/" + myFriend.getFirstName() + myFriend.getLastName();
                     foafProfile.addProperty(FOAF.knows, model.createResource(newUri, FOAF.Person)
                             .addProperty(FOAF.firstName, myFriend.getFirstName())

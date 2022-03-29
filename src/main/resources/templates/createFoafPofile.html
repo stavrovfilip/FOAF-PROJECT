@@ -5,6 +5,9 @@
             <br/>
             <br/>
             <br/>
+            <div th:if="${hasError}">
+                <div th:text="${error}" class="text-danger"></div>
+            </div>
             <input id="id" type="hidden" name="id"
                    th:value="(${foafProfileInfo} != null ? ${foafProfileInfo.getId()} : '')">
             <div class="mr-5 ml-5 mt-2">
@@ -144,6 +147,7 @@
                         <input type="text" id="friendFoafUri2" name="friendFoafUri2" class="form-control"
                                placeholder="Friend Foaf URI">
                     </div>
+                </div>
 
                 <div id="friend3" name="friend3" class="row">
                     <div class="col">
@@ -168,6 +172,8 @@
                     </div>
 
                 </div>
+                <br/>
+                <p id="text1" class="text-center"><i>All fields in Friends part are required! For URI we expect from you to provide a valid FOAF profile uri or social network uri.</i></p>
             </div>
 
 

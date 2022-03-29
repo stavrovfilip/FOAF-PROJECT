@@ -35,8 +35,11 @@ public class FoafProfileInfoController {
      * @return
      */
     @GetMapping("/foafprofile/create")
-    public String getFoafProfileCreatePage(Model model) {
-
+    public String getFoafProfileCreatePage(@RequestParam(required = false) String error, Model model) {
+        if (error != null && !error.isEmpty()) {
+            model.addAttribute("hasError", true);
+            model.addAttribute("error", error);
+        }
         model.addAttribute("bodyContent", "createFoafPofile");
 
         return "master-template";
@@ -50,9 +53,10 @@ public class FoafProfileInfoController {
      * @return string - page
      */
     @GetMapping("/foafprofile/edit/{id}")
-    public String editFoafProfilePage(@PathVariable Long id, Model model) {
-        if (this.foafProfileInfoService.findById(id).isPresent()) {
-            FoafProfileInfo foafProfileInfo = this.foafProfileInfoService.findById(id).get();
+    public String editFoafProfilePage(@PathVariable String id, Model model) {
+
+        if (this.foafProfileInfoService.findByURI(id) != null) {
+            FoafProfileInfo foafProfileInfo = this.foafProfileInfoService.findByURI(id);
             model.addAttribute("foafProfileInfo", foafProfileInfo);
             model.addAttribute("bodyContent", "createFoafPofile");
             return "master-template";
@@ -173,7 +177,8 @@ public class FoafProfileInfoController {
         String username = request.getRemoteUser();
         FoafProfile foafProfile = userService.findFoafProfileByUsername(username);
         model.addAttribute("profile", foafProfile);
-        model.addAttribute("id", foafProfile.getUri());
+        model.addAttribute("signinuser", username);
+        model.addAttribute("foafprofileowner", username);
         model.addAttribute("bodyContent", "myProfile");
 
         return "master-template";
@@ -188,10 +193,14 @@ public class FoafProfileInfoController {
      * @return string - page
      */
     @GetMapping("/profile/{id}")
-    public String showFoafProfileById(@PathVariable String id, Model model) {
+    public String showFoafProfileById(@PathVariable String id, Model model, HttpServletRequest request) {
         FoafProfile foafProfile = foafProfileService.getFoafProfileByUri(id);
+        String username = request.getRemoteUser();
+        String foafProfileOwner = this.userService.findUserByFoafProfile(foafProfile).getUsername();
         model.addAttribute("profile", foafProfile);
-        model.addAttribute("id", foafProfile.getUri());
+        model.addAttribute("signinuser", username);
+        model.addAttribute("foafprofileowner", foafProfileOwner);
+
         model.addAttribute("bodyContent", "myProfile");
 
         return "master-template";
