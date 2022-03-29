@@ -11,6 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping({"/home","/"})
 public class HomeController {
 
+    /**
+     * Method for rendering home page
+     * @param model
+     * @param request
+     * @return string - home page
+     */
     @GetMapping
     public String getHomePage(Model model, HttpServletRequest request) {
         model.addAttribute("bodyContent", "home");

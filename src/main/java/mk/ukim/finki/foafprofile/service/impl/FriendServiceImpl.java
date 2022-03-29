@@ -12,6 +12,11 @@ import org.springframework.stereotype.Service;
 public class FriendServiceImpl implements FriendService {
     private final FriendRepository friendRepository;
 
+    /**
+     * Method for saving new Friend provided in FOAF profile information
+     * @param friendDto
+     * @return
+     */
     @Override
     public Friend saveFriend(FriendDto friendDto) {
         Friend friend = new Friend();

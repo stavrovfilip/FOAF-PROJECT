@@ -20,6 +20,13 @@ public class AllFoafProfilesController {
     private final FoafProfileService foafProfileService;
     private final UserService userService;
 
+    /**
+     * Method for listing all created profiles and FOAF profiles on this platform
+     *
+     * @param error
+     * @param model
+     * @return string - template
+     */
     @GetMapping
     public String getAllFoafProfilesPage(@RequestParam(required = false) String error, Model model) {
         if (error != null && !error.isEmpty()) {

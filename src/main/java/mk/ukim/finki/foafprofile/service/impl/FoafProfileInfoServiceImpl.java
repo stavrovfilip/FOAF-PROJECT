@@ -23,6 +23,24 @@ public class FoafProfileInfoServiceImpl implements FoafProfileInfoService {
     private final FoafProfileInfoRepository foafProfileInfoRepository;
     private final FoafProfileService foafProfileService;
 
+    /**
+     * Method for saving new FOAF profile in FOAF info part and FOAF profile part of this platform
+     *
+     * @param title
+     * @param firstName
+     * @param lastName
+     * @param nickName
+     * @param email
+     * @param homepage
+     * @param phoneNumber
+     * @param picture
+     * @param workHomepage
+     * @param workDescription
+     * @param schoolHomepage
+     * @param myFriends
+     * @param username
+     * @return FoafProfileInfo
+     */
     @Override
     public FoafProfileInfo saveProfile(String title, String firstName, String lastName,
                                        String nickName, String email, String homepage,
@@ -44,16 +62,32 @@ public class FoafProfileInfoServiceImpl implements FoafProfileInfoService {
             name += randomNumber;
 
         }
-        // TO DO: stavete go vo app.properites
         String uri = name;
 
-        FoafProfileInfo newProfile =this.foafProfileInfoRepository.save(new FoafProfileInfo(uri, title, firstName, lastName, nickName,
+        FoafProfileInfo newProfile = this.foafProfileInfoRepository.save(new FoafProfileInfo(uri, title, firstName, lastName, nickName,
                 email, homepage, phoneNumber, picture, workHomepage, workDescription, schoolHomepage, myFriends));
         foafProfileService.createFoafProfile(newProfile, username);
         return newProfile;
 
     }
 
+    /**
+     * Method for updating information for already created FOAF profile in FOAF profile info part and FOAF profile part
+     *
+     * @param id
+     * @param title
+     * @param lastName
+     * @param nickName
+     * @param homepage
+     * @param phoneNumber
+     * @param picture
+     * @param workHomepage
+     * @param workDescription
+     * @param schoolHomepage
+     * @param myFriends
+     * @param username
+     * @return FoafProfileInfo
+     */
     @Override
     public FoafProfileInfo updateProfile(Long id, String title, String lastName, String nickName, String homepage,
                                          String phoneNumber, Picture picture, String workHomepage,
@@ -94,25 +128,49 @@ public class FoafProfileInfoServiceImpl implements FoafProfileInfoService {
         return this.foafProfileInfoRepository.save(foafProfileInfo);
     }
 
+    /**
+     * Method for returning FOAF profile associated with provided id
+     *
+     * @param id
+     * @return FoafProfileInfo
+     */
     @Override
     public Optional<FoafProfileInfo> findById(Long id) {
         return this.foafProfileInfoRepository.findById(id);
     }
 
+    /**
+     * Method for returning FOAF profile associated with provided uri
+     *
+     * @param uri
+     * @return FoafProfileInfo
+     */
     @Override
     public FoafProfileInfo findByURI(String uri) {
         return this.foafProfileInfoRepository.findByUri(uri);
     }
 
+    /**
+     * Method for returning FOAF profile associated with provided email
+     *
+     * @param email
+     * @return FoafProfileInfo
+     */
     @Override
     public FoafProfileInfo findByEmail(String email) {
         return this.foafProfileInfoRepository.findByEmail(email);
     }
 
+    /**
+     * Method for deleting existing FOAF profile associated with provided uri and username
+     *
+     * @param uri
+     * @param username
+     */
     @Override
     public void deleteProfile(String uri, String username) {
         FoafProfileInfo foafProfileInfo = this.foafProfileInfoRepository.findByUri(uri);
-        if (foafProfileInfo != null){
+        if (foafProfileInfo != null) {
             this.foafProfileInfoRepository.delete(foafProfileInfo);
         }
     }

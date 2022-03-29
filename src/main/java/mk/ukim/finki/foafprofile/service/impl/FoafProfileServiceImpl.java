@@ -30,6 +30,13 @@ public class FoafProfileServiceImpl implements FoafProfileService {
         this.userRepository = userRepository;
     }
 
+    /**
+     * Method for creating new FOAF profile
+     *
+     * @param foafProfileInfo
+     * @param username
+     * @return FoafProfile
+     */
     @Override
     public FoafProfile createFoafProfile(FoafProfileInfo foafProfileInfo, String username) {
         User user = userRepository.findByUsername(username);
@@ -71,6 +78,14 @@ public class FoafProfileServiceImpl implements FoafProfileService {
         return newFoafProfile;
     }
 
+    /**
+     * Method for updating already existing FOAF profile
+     *
+     * @param foafProfileuri
+     * @param foafProfileInfo
+     * @param username
+     * @return FoafProfile
+     */
     @Override
     public FoafProfile updateFoafProfile(String foafProfileuri, FoafProfileInfo foafProfileInfo, String username) {
         User user = userRepository.findByUsername(username);
@@ -113,6 +128,12 @@ public class FoafProfileServiceImpl implements FoafProfileService {
         return foafProfileForUpdate;
     }
 
+    /**
+     * Method for deleting already existing FOAF profile from database and file system
+     *
+     * @param uri
+     * @param username
+     */
     @Override
     public void deleteFoafProfile(String uri, String username) {
         User user = this.userRepository.findByUsername(username);
@@ -123,16 +144,34 @@ public class FoafProfileServiceImpl implements FoafProfileService {
         fileToBeDeleted.delete();
     }
 
+    /**
+     * Method for getting FOAF profile associated with provided uri
+     *
+     * @param uri
+     * @return FoafProfile
+     */
     @Override
     public FoafProfile getFoafProfileByUri(String uri) {
         return foafProfileRepository.getById(uri);
     }
 
+    /**
+     * Method for returning all FOAF profiles created on this platform
+     *
+     * @return List<FoafProfile>
+     */
     @Override
     public List<FoafProfile> findAll() {
         return this.foafProfileRepository.findAll();
     }
 
+    /**
+     * Method from converting FOAF profile from rdf to provided type
+     *
+     * @param uri
+     * @param format
+     * @return string - file path name
+     */
     @Override
     public String convertFromRDF(String uri, String format) {
         FoafProfile foafProfile = this.foafProfileRepository.getById(uri);
@@ -174,6 +213,13 @@ public class FoafProfileServiceImpl implements FoafProfileService {
         return filePathName;
     }
 
+    /**
+     * Method for generating FOAF profile with jena model
+     *
+     * @param model
+     * @param foafProfileInfo
+     * @return resource - new created FOAF model in jena
+     */
     private Resource createFoafProfileResource(Model model, FoafProfileInfo foafProfileInfo) {
 
         String totalUri = "https://localhost:8080/profiles/" + foafProfileInfo.getUri();
@@ -208,7 +254,6 @@ public class FoafProfileServiceImpl implements FoafProfileService {
             foafProfile.addProperty(FOAF.schoolHomepage, foafProfileInfo.getSchoolHomepage());
         }
 
-        //ovde imame problemi radi toa sto moze da e prazno posleto
         List<Friend> myFriends = foafProfileInfo.getMyFriends();
         if (!myFriends.isEmpty()) {
             myFriends.forEach(myFriend -> {

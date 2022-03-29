@@ -21,6 +21,12 @@ public class UserController {
     private final UserService userService;
     private final EmailService emailService;
 
+    /**
+     * Method for getting register page
+     *
+     * @param model
+     * @return string - register page
+     */
     @GetMapping("/register")
     public String getRegisterPage(@RequestParam(required = false) String error, Model model) {
         if (error != null && !error.isEmpty()) {
@@ -32,6 +38,13 @@ public class UserController {
         return "master-template";
     }
 
+    /**
+     * Method for geting login page
+     *
+     * @param error
+     * @param model
+     * @return string - login page
+     */
     @GetMapping("/login")
     public String getLoginPage(@RequestParam(required = false) String error, Model model) {
         if (error != null && !error.isEmpty()) {
@@ -42,6 +55,17 @@ public class UserController {
         return "master-template";
     }
 
+    /**
+     * Method for registering new user on page
+     *
+     * @param firstname
+     * @param lastname
+     * @param username
+     * @param password
+     * @param repeatedPassword
+     * @param email
+     * @return stirng - redirecting page
+     */
     @PostMapping("/register")
     public String register(@RequestParam String firstname,
                            @RequestParam String lastname,
@@ -60,6 +84,13 @@ public class UserController {
 
     }
 
+    /**
+     * Method for login existing user on page
+     *
+     * @param request
+     * @param model
+     * @return string - redirecting home page or login page
+     */
     @PostMapping("/login")
     public String signIn(HttpServletRequest request, Model model) {
         User user = null;

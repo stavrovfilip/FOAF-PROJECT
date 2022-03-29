@@ -28,6 +28,12 @@ public class FoafProfileInfoController {
     private final UserService userService;
     private final PictureService pictureService;
 
+    /**
+     * Method for getting page for creating new FOAF profile
+     *
+     * @param model
+     * @return
+     */
     @GetMapping("/foafprofile/create")
     public String getFoafProfileCreatePage(Model model) {
 
@@ -36,6 +42,13 @@ public class FoafProfileInfoController {
         return "master-template";
     }
 
+    /**
+     * Method for updating already created FOAF profile
+     *
+     * @param id
+     * @param model
+     * @return string - page
+     */
     @GetMapping("/foafprofile/edit/{id}")
     public String editFoafProfilePage(@PathVariable Long id, Model model) {
         if (this.foafProfileInfoService.findById(id).isPresent()) {
@@ -47,7 +60,37 @@ public class FoafProfileInfoController {
         return "redirect:/profiles?error=FoafProfileNotFound";
     }
 
-
+    /**
+     * Method for creating new FOAF profile in FOAF info part and FOAF profile part
+     *
+     * @param id
+     * @param title
+     * @param firstName
+     * @param lastName
+     * @param nickName
+     * @param email
+     * @param homepage
+     * @param phoneNumber
+     * @param picture
+     * @param workHomepage
+     * @param workDescription
+     * @param schoolHomepage
+     * @param friendFirstName
+     * @param friendLastName1
+     * @param friendEmail
+     * @param friendFoafUri
+     * @param friendFirstName2
+     * @param friendLastName2
+     * @param friendEmail2
+     * @param friendFoafUri2
+     * @param friendFirstName3
+     * @param friendLastName3
+     * @param friendEmail3
+     * @param friendFoafUri3
+     * @param req
+     * @return string - redirecting page
+     * @throws IOException
+     */
     @PostMapping("/foafprofile/create")
     public String createFoafProfile(
             @RequestParam(value = "id", required = false) Long id,
@@ -118,6 +161,13 @@ public class FoafProfileInfoController {
 
     }
 
+    /**
+     * Method for getting already created FOAF profile for site user
+     *
+     * @param request
+     * @param model
+     * @return string - page
+     */
     @GetMapping("/profile")
     public String showFoafProfile(HttpServletRequest request, Model model) {
         String username = request.getRemoteUser();
@@ -129,6 +179,14 @@ public class FoafProfileInfoController {
         return "master-template";
 
     }
+
+    /**
+     * Methnod for getting already created FOAF profile with associated id
+     *
+     * @param id
+     * @param model
+     * @return string - page
+     */
     @GetMapping("/profile/{id}")
     public String showFoafProfileById(@PathVariable String id, Model model) {
         FoafProfile foafProfile = foafProfileService.getFoafProfileByUri(id);
@@ -140,6 +198,13 @@ public class FoafProfileInfoController {
 
     }
 
+    /**
+     * Method for deleting already existing FOAF profile
+     *
+     * @param id
+     * @param req
+     * @return string - redirecting page
+     */
     @DeleteMapping("/foafprofile/delete/{id}")
     public String deleteFoafProfile(@PathVariable String id, HttpServletRequest req) {
         //deleting FOAF profile
@@ -150,6 +215,13 @@ public class FoafProfileInfoController {
         return "redirect:/profiles";
     }
 
+    /**
+     * Method for downloading rdf FOAF profile from site
+     *
+     * @param response
+     * @param id
+     * @throws IOException
+     */
     @RequestMapping(value = "/foafprofile/download", method = RequestMethod.GET)
     public void downloadPDFResource(HttpServletResponse response,
                                     @Param(value = "id") String id) throws IOException {
@@ -176,6 +248,14 @@ public class FoafProfileInfoController {
         }
     }
 
+    /**
+     * Method for converting already created FOAF profile from rdf to provided type and downloading it
+     *
+     * @param response
+     * @param id
+     * @param format
+     * @throws IOException
+     */
     @RequestMapping(value = "/foafprofile/converter", method = RequestMethod.GET)
     public void downloadConveredResource(HttpServletResponse response,
                                          @Param(value = "id") String id, @Param(value = "format") String format) throws IOException {

@@ -28,11 +28,29 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    /**
+     * Login existing user on platform
+     *
+     * @param username
+     * @param password
+     * @return User
+     */
     @Override
     public User login(String username, String password) {
         return this.userRepository.findByUsernameAndPassword(username, passwordEncoder.encode(password)).orElseThrow(InvalidUserCredentialException::new);
     }
 
+    /**
+     * Registering new user on platform
+     *
+     * @param username
+     * @param email
+     * @param firstName
+     * @param lastName
+     * @param password
+     * @param repeatPassword
+     * @return User
+     */
     @Override
     public User register(String username, String email, String firstName, String lastName, String password, String repeatPassword) {
         if (username == null || username.isEmpty() || password == null || password.isEmpty())
@@ -50,16 +68,33 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userRepository.save(user);
     }
 
+    /**
+     * Returning user associated with provided email
+     *
+     * @param email
+     * @return User
+     */
     @Override
     public User findUserByEmail(String email) {
         return this.userRepository.findUserByEmail(email);
     }
 
+    /**
+     * Listing all users stored in database
+     *
+     * @return List<User>
+     */
     @Override
     public List<User> findAll() {
         return this.userRepository.findAll();
     }
 
+    /**
+     * Returning FOAF profile associated with user with provided username
+     *
+     * @param username
+     * @return FoafProfile
+     */
     @Override
     public FoafProfile findFoafProfileByUsername(String username) {
         User user = this.userRepository.findByUsername(username);

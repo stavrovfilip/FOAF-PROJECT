@@ -14,6 +14,13 @@ import java.nio.file.Paths;
 
 @Controller
 public class ImageController {
+
+    /**
+     * Method for rendering background image for the whole platform
+     *
+     * @return  ResponseEntity - resource/ image
+     * @throws IOException
+     */
     @GetMapping(value = "/image", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<Resource> image() throws IOException {
         final ByteArrayResource inputStream = new ByteArrayResource(Files.readAllBytes(Paths.get(
