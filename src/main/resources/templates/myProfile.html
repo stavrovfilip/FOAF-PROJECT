@@ -5,6 +5,7 @@
         <div class="container mt-5" id="text1" th:if="${profile != null}">
             <span class="d-flex justify-content-center" id="text1"><i class="fa fa-user-circle" id="user-icon"
                                                                       aria-hidden="true"></i></span>
+            <h3 class="text-center  font-weight-bold text-light"><span th:text="${foafprofileowner}"></span>'s Profile</h3>
             <h3 class="text-center  font-weight-bold" id="text1">My RDF Profile</h3>
             <br/>
             <textarea class="text-light ui-state-disabled" style="background: #0B3D59">
