@@ -6,5 +6,6 @@ import mk.ukim.finki.foafprofile.model.dto.FriendDto;
 public interface FriendService {
 
     Friend saveFriend(FriendDto friendDto);
+    void updateFriend(long friendId, long foafProfileInfoId);
 
 }

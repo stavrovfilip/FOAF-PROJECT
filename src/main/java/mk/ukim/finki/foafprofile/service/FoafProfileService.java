@@ -2,8 +2,6 @@ package mk.ukim.finki.foafprofile.service;
 
 import mk.ukim.finki.foafprofile.model.FoafProfile;
 import mk.ukim.finki.foafprofile.model.FoafProfileInfo;
-
-import java.io.File;
 import java.util.List;
 
 public interface FoafProfileService {

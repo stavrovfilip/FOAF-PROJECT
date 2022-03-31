@@ -135,8 +135,8 @@ public class FoafProfileInfoServiceImpl implements FoafProfileInfoService {
      * @return FoafProfileInfo
      */
     @Override
-    public Optional<FoafProfileInfo> findById(Long id) {
-        return this.foafProfileInfoRepository.findById(id);
+    public FoafProfileInfo findById(Long id) {
+        return this.foafProfileInfoRepository.findById(id).orElseThrow(FoafProfileInfoNotFoundException::new);
     }
 
     /**

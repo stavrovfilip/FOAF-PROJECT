@@ -20,6 +20,8 @@ public class Friend {
     private String lastName;
     private String email;
     private String foafProfileUri;
+    @ManyToOne
+    private FoafProfileInfo foafProfileInfo;
 
     public Friend(Long id, String firstName, String lastName, String email) {
         this.id = id;

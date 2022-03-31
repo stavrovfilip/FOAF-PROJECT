@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
@@ -153,11 +154,16 @@ public class FoafProfileInfoController {
 
         FoafProfileInfo foafProfileInfo = null;
         if (id != null) {
+            List<Friend> allFriends = this.foafProfileInfoService.findById(id).getMyFriends();
+            allFriends.addAll(friends);
             foafProfileInfo = this.foafProfileInfoService.updateProfile(id, title, lastName, nickName, homepage,
-                    phoneNumber, picture1, workHomepage, workDescription, schoolHomepage, friends, username);
+                    phoneNumber, picture1, workHomepage, workDescription, schoolHomepage, allFriends, username);
         } else {
             foafProfileInfo = this.foafProfileInfoService.saveProfile(title, firstName, lastName, nickName, email, homepage, phoneNumber,
                     picture1, workHomepage, workDescription, schoolHomepage, friends, username);
+        }
+        for (Friend friend: friends) {
+            this.friendService.updateFriend(friend.getId(), foafProfileInfo.getId());
         }
 
 

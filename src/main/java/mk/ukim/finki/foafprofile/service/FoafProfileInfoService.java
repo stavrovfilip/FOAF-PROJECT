@@ -17,7 +17,7 @@ public interface FoafProfileInfoService {
                                          String nickName, String homepage, String phoneNumber, Picture picture,
                                          String workHomepage, String workDescription, String schoolHomepage, List<Friend> myFriends, String username);
 
-    public Optional<FoafProfileInfo> findById(Long id);
+    public FoafProfileInfo findById(Long id);
 
     public FoafProfileInfo findByURI(String uri);
 
